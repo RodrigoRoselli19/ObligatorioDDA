@@ -3,7 +3,6 @@ public class Arbitro extends Persona{
     private int partidosDirigidos;
     private int añosExperiencia;
 
-
     public int getPartidosDirigidos() {
         return partidosDirigidos;
     }
