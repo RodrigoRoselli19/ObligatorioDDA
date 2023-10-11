@@ -34,7 +34,7 @@ public class ABMJugador {
                             modificarJugador();
                             break;
                         case 4:
-                            mostrarPersonaPorPosicion();
+                            mostrarJugadoresPorPosicion();
                             break;
                         case 5:
                             buscarJugador();
@@ -190,4 +190,71 @@ public class ABMJugador {
             System.out.println("Cedula no encontrada. \n");
         }
     }
+    static void mostrarJugadoresPorPosicion() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese la posición: ");
+        int posicion = scanner.nextInt();
+
+        if (posicion >= 0 && posicion < listaJugador.size()) {
+            System.out.println(listaJugador.get(posicion - 1));
+        } else {
+            System.out.println("Posición fuera de rango. \n");
+        }
+    }
+    static void buscarJugador() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Seleccione cómo desea buscar al jugador:");
+        System.out.println("1. Por Nombre");
+        System.out.println("2. Por cedula");
+        System.out.print("Seleccione una opción: ");
+
+        int opcionBuscar = scanner.nextInt();
+        scanner.nextLine(); // Consumir la nueva línea después del número
+
+        switch (opcionBuscar) {
+            case 1:
+                System.out.print("Ingrese el nombre a buscar: ");
+                String nombreBuscar = scanner.nextLine();
+
+                List<Jugador> jugadoresPorNombre = new ArrayList<>();
+                for (Jugador jugador : listaJugador) {
+                    if (jugador.getNombre().equals(nombreBuscar)) {
+                        jugadoresPorNombre.add(jugador);
+                    }
+                }
+
+                if (!jugadoresPorNombre.isEmpty()) {
+                    System.out.println("Jugadores encontrados:");
+                    for (Jugador jugador : jugadoresPorNombre) {
+                        System.out.println(jugador);
+                    }
+                } else {
+                    System.out.println("Nombre no encontrado. \n");
+                }
+                break;
+            case 2:
+                System.out.print("Ingrese la cedula a buscar: ");
+                String ciBuscar = scanner.nextLine();
+                scanner.nextLine(); // Consumir la nueva línea después del número
+
+                Jugador jugadorCI = null;
+                for (Jugador jugador : listaJugador) {
+                    if (jugador.getCedula().equals(ciBuscar)) {
+                        jugadorCI = jugador;
+                        break;
+                    }
+                }
+
+                if (jugadorCI != null) {
+                    System.out.println(jugadorCI);
+                } else {
+                    System.out.println("Cedula no encontrado. \n");
+                }
+                break;
+            default:
+                System.out.println("Opción no válida. Intente de nuevo. \n");
+                break;
+        }
+    }
 }
+
