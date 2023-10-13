@@ -42,4 +42,15 @@ public void setEquipo(String equipo){
                 ", Minutos=" + minutos +
                 '}';
     }
+
+    @Override
+    public double calcularSalario() {
+        // Calcula el salario base del jugador
+        double salarioBase = 10000;
+
+        // Aplica el 20% de prima sobre el salario base
+        double prima = salarioBase * 0.2;
+
+        return salarioBase + prima;
+    }
 }

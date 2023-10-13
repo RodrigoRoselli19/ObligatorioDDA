@@ -9,7 +9,7 @@ public class ABMJugador {
             Scanner scanner = new Scanner(System.in);
 
             while (!salir) {
-                System.out.println("\nGestión de Lista de Personas\n");
+                System.out.println("\nGestión de Lista de Jugador\n");
                 System.out.println("1. Agregar Jugador");
                 System.out.println("2. Eliminar Jugador");
                 System.out.println("3. Modificar Jugador");

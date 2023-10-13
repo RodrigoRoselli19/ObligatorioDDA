@@ -40,4 +40,6 @@ public abstract class Persona {
                 ", Apellido='" + apellido + '\'' +
                 '}';
     }
+
+    public abstract double calcularSalario();
 }

@@ -2,7 +2,7 @@ public class Tecnico extends Persona {
     private String equipo;
     private int partidosGanados;
 
-    public String getEquipo(){
+    public String getEquipo() {
         return equipo;
     }
 
@@ -34,5 +34,19 @@ public class Tecnico extends Persona {
                 "Equipo='" + equipo + '\'' +
                 ", Partidos Ganados=" + partidosGanados +
                 '}';
+    }
+
+    @Override
+    public double calcularSalario() {
+        // Calcula el salario base del técnico
+        double salarioBase = 5000;
+
+        // Aplica el 10% de complemento sobre el salario base si ha ganado al menos 3 partidos
+        if (partidosGanados > 3) {
+            double complemento = salarioBase * 0.1;
+            salarioBase += complemento;
+        }
+
+        return salarioBase;
     }
 }
