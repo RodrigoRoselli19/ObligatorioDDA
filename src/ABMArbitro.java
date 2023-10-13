@@ -67,11 +67,14 @@ public class ABMArbitro {
         System.out.print("Apellido: ");
         String apellido = scanner.nextLine();
 
+        System.out.print("Salario: ");
+        double salario = scanner.nextInt();
+
         System.out.print("Años de Experiencia: ");
         int añosExperiencia = scanner.nextInt();
         scanner.nextLine(); // Consumir la nueva línea después del número
 
-        listaArbitro.add(new Arbitro(cedula, nombre, apellido, añosExperiencia));
+        listaArbitro.add(new Arbitro(cedula, nombre, apellido, salario, añosExperiencia));
         mostrarArbitros();
     }
 
@@ -124,12 +127,15 @@ public class ABMArbitro {
             String nuevoNombre = scanner.nextLine();
             System.out.print("Apellido: ");
             String nuevoApellido = scanner.nextLine();
+            System.out.print("Salario: ");
+            double nuevoSalario = scanner.nextInt();
             System.out.print("Años de Experiencia: ");
             int nuevosAñosExperiencia = scanner.nextInt();
             scanner.nextLine(); // Consumir la nueva línea después del número
 
             arbitroAModificar.setNombre(nuevoNombre);
             arbitroAModificar.setApellido(nuevoApellido);
+            arbitroAModificar.setSalario(nuevoSalario);
             arbitroAModificar.setAñosExperiencia(nuevosAñosExperiencia);
             mostrarArbitros();
         } else {

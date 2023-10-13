@@ -18,8 +18,8 @@ public class Tecnico extends Persona {
         this.partidosGanados = partidosGanados;
     }
 
-    public Tecnico(String cedula, String nombre, String apellido, String equipo) {
-        super(cedula, nombre, apellido);
+    public Tecnico(String cedula, String nombre, String apellido,double salario, String equipo) {
+        super(cedula, nombre, apellido, salario);
         this.equipo = equipo;
         this.partidosGanados = 0;
     }
@@ -30,16 +30,16 @@ public class Tecnico extends Persona {
 
     @Override
     public String toString() {
-        return "Tecnico{" +
+        return super.toString()+
+                "Tecnico: " +
                 "Equipo='" + equipo + '\'' +
-                ", Partidos Ganados=" + partidosGanados +
-                '}';
+                ", Partidos Ganados=" + partidosGanados;
     }
 
     @Override
     public double calcularSalario() {
         // Calcula el salario base del técnico
-        double salarioBase = 5000;
+        double salarioBase = this.getSalario();
 
         // Aplica el 10% de complemento sobre el salario base si ha ganado al menos 3 partidos
         if (partidosGanados > 3) {

@@ -67,10 +67,13 @@ public class ABMTecnico {
         System.out.print("Apellido: ");
         String apellido = scanner.nextLine();
 
+        System.out.print("Salario: ");
+        double salario = scanner.nextInt();
+
         System.out.print("Equipo: ");
         String equipo = scanner.nextLine();
 
-        listaTecnicos.add(new Tecnico(cedula, nombre, apellido, equipo));
+        listaTecnicos.add(new Tecnico(cedula, nombre, apellido, salario, equipo));
         mostrarTecnicos();
     }
 
@@ -123,11 +126,14 @@ public class ABMTecnico {
             String nuevoNombre = scanner.nextLine();
             System.out.print("Apellido: ");
             String nuevoApellido = scanner.nextLine();
+            System.out.print("Salario: ");
+            double nuevoSalario = scanner.nextInt();
             System.out.print("Equipo: ");
             String nuevoEquipo = scanner.nextLine();
 
             tecnicoAModificar.setNombre(nuevoNombre);
             tecnicoAModificar.setApellido(nuevoApellido);
+            tecnicoAModificar.setSalario(nuevoSalario);
             tecnicoAModificar.setEquipo(nuevoEquipo);
             mostrarTecnicos();
         } else {

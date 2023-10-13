@@ -27,8 +27,8 @@ public void setEquipo(String equipo){
         this.minutos = minutos;
     }
 
-    public Jugador(String cedula, String nombre, String apellido, String posicion, String equipo) {
-        super(cedula, nombre, apellido);
+    public Jugador(String cedula, String nombre, String apellido, double salario, String posicion, String equipo) {
+        super(cedula, nombre, apellido, salario);
         this.posicion = posicion;
         this.equipo = equipo;
         this.minutos = 0;
@@ -36,17 +36,17 @@ public void setEquipo(String equipo){
 
     @Override
     public String toString() {
-        return "Jugador{" +
+        return super.toString()+
+                "Jugador: " +
                 "Posicion='" + posicion + '\'' +
                 ", Equipo='" + equipo + '\'' +
-                ", Minutos=" + minutos +
-                '}';
+                ", Minutos=" + minutos + '\'';
     }
 
     @Override
     public double calcularSalario() {
         // Calcula el salario base del jugador
-        double salarioBase = 10000;
+        double salarioBase = this.getSalario();
 
         // Aplica el 20% de prima sobre el salario base
         double prima = salarioBase * 0.2;

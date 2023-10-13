@@ -55,7 +55,6 @@ public class ABMJugador {
         }
     static void agregarJugador() {
         Scanner scanner = new Scanner(System.in);
-        for (int i = 0; i < 7; i++) {
             System.out.println("Ingrese los datos del jugador:");
 
             System.out.print("Cédula: ");
@@ -67,18 +66,17 @@ public class ABMJugador {
             System.out.print("Apellido: ");
             String apellido = scanner.nextLine();
 
+            System.out.print("Salario: ");
+            double salario = scanner.nextDouble();
+            scanner.nextLine();
             System.out.print("Posicion: ");
             String posicion = scanner.nextLine();
 
             System.out.print("Equipo: ");
             String equipo = scanner.nextLine();
 
-
-            listaJugador.add(new Jugador(cedula, nombre, apellido, posicion, equipo));
-
-
-        }
-        mostrarListaJugadores();
+            listaJugador.add(new Jugador(cedula, nombre, apellido, salario, posicion, equipo));
+            mostrarListaJugadores();
     }
     static void mostrarListaJugadores() {
         System.out.println("Lista de Jugadores:");
@@ -175,6 +173,8 @@ public class ABMJugador {
             String nuevoNombre = scanner.nextLine();
             System.out.print("Apellido: ");
             String nuevoApellido = scanner.nextLine();
+            System.out.print("Salario: ");
+            double nuevoSalario = scanner.nextInt();
             System.out.print("Posicion: ");
             String nuevaPosicion = scanner.nextLine();
             System.out.print("Equipo: ");
@@ -183,6 +183,7 @@ public class ABMJugador {
 
             jugadorAModificar.setNombre(nuevoNombre);
             jugadorAModificar.setApellido(nuevoApellido);
+            jugadorAModificar.setSalario(nuevoSalario);
             jugadorAModificar.setPosicion(nuevaPosicion);
             jugadorAModificar.setEquipo(nuevoEquipo);
             mostrarListaJugadores();

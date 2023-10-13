@@ -19,8 +19,8 @@ public class Arbitro extends Persona{
             this.añosExperiencia = añosExperiencia;
         }
 
-        public Arbitro(String cedula, String nombre, String apellido, int añosExperiencia) {
-            super(cedula, nombre, apellido);
+        public Arbitro(String cedula, String nombre, String apellido, double salario, int añosExperiencia) {
+            super(cedula, nombre, apellido, salario);
             this.partidosDirigidos = 0;
             this.añosExperiencia = añosExperiencia;
         }
@@ -31,16 +31,17 @@ public class Arbitro extends Persona{
 
         @Override
         public String toString() {
-            return "Arbitro{" +
+            return super.toString()+
+                    "Arbitro: " +
                     "Partidos Dirigidos=" + partidosDirigidos +
-                    ", Años Experiencia=" + añosExperiencia +
-                    '}';
+                    ", Años Experiencia=" + añosExperiencia
+                    ;
         }
 
     @Override
     public double calcularSalario() {
         // Calcula el salario base del árbitro
-        double salarioBase =1000;
+        double salarioBase =this.getSalario();
 
         // Aplica un 3% adicional por cada año de trabajo si tiene más de 5 años arbitrando
         if (añosExperiencia > 5) {
