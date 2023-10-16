@@ -13,8 +13,7 @@ public class ABMJugador {
                 System.out.println("1. Agregar Jugador");
                 System.out.println("2. Eliminar Jugador");
                 System.out.println("3. Modificar Jugador");
-                System.out.println("4. Mostrar Jugadores");
-                System.out.println("4. Mostrar Jugadores por Equipo");
+                System.out.println("4. Mostrar Jugadores por posicion");
                 System.out.println("5. Buscar Jugador por Nombre o ID");
                 System.out.println("6. Salir");
                 System.out.print("\nSeleccione una opción: ");
@@ -54,30 +53,42 @@ public class ABMJugador {
             scanner.close();
         }
     static void agregarJugador() {
-        Scanner scanner = new Scanner(System.in);
-            System.out.println("Ingrese los datos del jugador:");
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("Ingrese los datos del jugador:");
 
-            System.out.print("Cédula: ");
-            String cedula = scanner.nextLine();
+                System.out.print("Cédula: ");
+                String cedula = scanner.nextLine();
 
-            System.out.print("Nombre: ");
-            String nombre = scanner.nextLine();
+                System.out.print("Nombre: ");
+                String nombre = scanner.nextLine();
 
-            System.out.print("Apellido: ");
-            String apellido = scanner.nextLine();
+                System.out.print("Apellido: ");
+                String apellido = scanner.nextLine();
 
-            System.out.print("Salario: ");
-            double salario = scanner.nextDouble();
-            scanner.nextLine();
-            System.out.print("Posicion: ");
-            String posicion = scanner.nextLine();
+                System.out.print("Salario: ");
+                double salario = scanner.nextDouble();
+                scanner.nextLine();
+                System.out.print("Posicion: ");
+                String posicion = scanner.nextLine();
 
-            System.out.print("Equipo: ");
-            String equipo = scanner.nextLine();
+                System.out.print("Equipo: ");
+                String equipo = scanner.nextLine();
 
-            listaJugador.add(new Jugador(cedula, nombre, apellido, salario, posicion, equipo));
-            mostrarListaJugadores();
-    }
+                int jugadoresPorEquipo = 0;
+
+                for (Jugador jugador : listaJugador) {
+                    if (jugador.getEquipo().equalsIgnoreCase(equipo)) {
+                        jugadoresPorEquipo++;
+                    }
+                }
+                if (jugadoresPorEquipo < 7) {
+                listaJugador.add(new Jugador(cedula, nombre, apellido, salario, posicion, equipo));
+                mostrarListaJugadores();
+                } else {
+                System.out.println("Ya ha superado el máximo de jugadores (7) para este equipo.");
+                }
+        }
+
     static void mostrarListaJugadores() {
         System.out.println("Lista de Jugadores:");
         for (Jugador jugador : listaJugador) {
@@ -194,10 +205,10 @@ public class ABMJugador {
     static void mostrarJugadoresPorPosicion() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese la posición: ");
-        int posicion = scanner.nextInt();
-
-        if (posicion >= 0 && posicion < listaJugador.size()) {
-            System.out.println(listaJugador.get(posicion - 1));
+        String posicion = scanner.nextLine();
+        for (Jugador jugador : listaJugador)
+        if (jugador.getPosicion().equals(posicion)) {
+            System.out.println(jugador);
         } else {
             System.out.println("Posición fuera de rango. \n");
         }

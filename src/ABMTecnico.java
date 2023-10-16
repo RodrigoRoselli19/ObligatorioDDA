@@ -69,12 +69,23 @@ public class ABMTecnico {
 
         System.out.print("Salario: ");
         double salario = scanner.nextInt();
-
+        scanner.nextLine();
         System.out.print("Equipo: ");
         String equipo = scanner.nextLine();
 
-        listaTecnicos.add(new Tecnico(cedula, nombre, apellido, salario, equipo));
-        mostrarTecnicos();
+        int tecnicoPorEquipo = 0;
+        for (Tecnico tecnico: listaTecnicos) {
+            if (tecnico.getEquipo().equalsIgnoreCase(equipo)){
+                tecnicoPorEquipo++;
+            }
+        }
+        if (tecnicoPorEquipo < 7){
+            listaTecnicos.add(new Tecnico(cedula, nombre, apellido, salario, equipo));
+            mostrarTecnicos();
+        } else {
+            System.out.println("Ya tiene tecnico este equipo");
+        }
+
     }
 
     static void mostrarTecnicos() {

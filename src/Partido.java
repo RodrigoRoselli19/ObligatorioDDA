@@ -59,8 +59,8 @@ public class Partido {
         return "Partido{" +
                 "Fecha='" + fecha + '\'' +
                 ", Hora='" + hora + '\'' +
-                ", EquipoA='" + equipoA + '\'' +
-                ", EquipoB='" + equipoB + '\'' +
+                 equipoA +
+                " vs '" + equipoB + '\'' +
                 ", Arbitro=" + arbitro +
                 '}';
     }

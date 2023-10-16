@@ -69,7 +69,7 @@ public class ABMArbitro {
 
         System.out.print("Salario: ");
         double salario = scanner.nextInt();
-
+        scanner.nextLine();
         System.out.print("Años de Experiencia: ");
         int añosExperiencia = scanner.nextInt();
         scanner.nextLine(); // Consumir la nueva línea después del número
