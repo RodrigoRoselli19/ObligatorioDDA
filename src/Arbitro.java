@@ -45,7 +45,7 @@ public class Arbitro extends Persona{
 
         // Aplica un 3% adicional por cada año de trabajo si tiene más de 5 años arbitrando
         if (añosExperiencia > 5) {
-            int añosExperiencia = 6;
+            int añosExperiencia = this.añosExperiencia;
             double bonoExperiencia = salarioBase * (0.03 * añosExperiencia);
             salarioBase += bonoExperiencia;
         }
