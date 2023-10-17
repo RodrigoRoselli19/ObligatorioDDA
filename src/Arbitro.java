@@ -52,6 +52,11 @@ public class Arbitro extends Persona{
 
         return salarioBase;
     }
+
+    public void precalentar() {
+        System.out.println(Arbitro.super.getNombre() + " está precalentando durante 10 minutos.");
+    }
+
 }
 
 

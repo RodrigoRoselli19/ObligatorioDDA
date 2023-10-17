@@ -53,4 +53,9 @@ public void setEquipo(String equipo){
 
         return salarioBase + prima;
     }
+
+    public void precalentar() {
+        System.out.println(Jugador.super.getNombre() + " está precalentando durante 15 minutos.");
+    }
+
 }

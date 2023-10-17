@@ -15,7 +15,9 @@ public class ABMJugador {
                 System.out.println("3. Modificar Jugador");
                 System.out.println("4. Mostrar Jugadores por posicion");
                 System.out.println("5. Buscar Jugador por Nombre o ID");
-                System.out.println("6. Salir");
+                System.out.println("6. Calcular salario de jugador");
+                System.out.println("7. Precalentar");
+                System.out.println("7. Salir");
                 System.out.print("\nSeleccione una opción: ");
 
                 int opcion;
@@ -39,6 +41,12 @@ public class ABMJugador {
                             buscarJugador();
                             break;
                         case 6:
+                            calcularSalario();
+                            break;
+                        case 7:
+                            precalentar();
+                            break;
+                        case 8:
                             salir = true;
                             break;
                         default:
@@ -52,6 +60,40 @@ public class ABMJugador {
             }
             scanner.close();
         }
+
+     static void precalentar() {
+         Scanner scanner = new Scanner(System.in);
+         System.out.print("Ingrese el nombre del jugador que precalentará: ");
+         String nombreJugador = scanner.nextLine();
+         boolean jugadorEncontrado = false;
+
+         for (Jugador jugador : listaJugador) {
+             if (jugador.getNombre().equalsIgnoreCase(nombreJugador)) {
+                 jugador.precalentar();
+                 jugadorEncontrado = true;
+                 break;
+             }
+         }
+
+         if (!jugadorEncontrado) {
+             System.out.println("Jugador no encontrado.");
+         }
+     }
+
+    static void calcularSalario() {
+        System.out.println("Calculando salarios para todos los jugadores:\n");
+
+        if (listaJugador.isEmpty()) {
+            System.out.println("No hay jugadores en la lista.");
+        } else {
+            for (Jugador jugador : listaJugador) {
+                double salario = jugador.calcularSalario();
+                System.out.println(jugador.getNombre() + " - Salario: $" + salario);
+            }
+        }
+    }
+
+
     static void agregarJugador() {
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("Ingrese los datos del jugador:");
@@ -267,6 +309,7 @@ public class ABMJugador {
                 System.out.println("Opción no válida. Intente de nuevo. \n");
                 break;
         }
+
     }
 }
 

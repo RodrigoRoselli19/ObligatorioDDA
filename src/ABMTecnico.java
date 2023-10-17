@@ -16,7 +16,8 @@ public class ABMTecnico {
             System.out.println("3. Modificar Técnico");
             System.out.println("4. Mostrar Técnicos");
             System.out.println("5. Buscar Técnico por Cédula");
-            System.out.println("6. Salir");
+            System.out.println("6. Calcular salario de jugador");
+            System.out.println("7. Salir");
             System.out.print("\nSeleccione una opción: ");
 
             int opcion;
@@ -40,6 +41,9 @@ public class ABMTecnico {
                         buscarTecnicoPorCedula();
                         break;
                     case 6:
+                        calcularSalario();
+                        break;
+                    case 7:
                         salir = true;
                         break;
                     default:
@@ -53,6 +57,19 @@ public class ABMTecnico {
         }
         scanner.close();
     }
+
+     static void calcularSalario() {
+        System.out.println("Calculando salarios para todos los técnicos:\n");
+        if (listaTecnicos.isEmpty()) {
+            System.out.println("No hay técnicos en la lista.");
+        } else {
+            for (Tecnico tecnico : listaTecnicos) {
+                double salario = tecnico.calcularSalario();
+                System.out.println(tecnico.getNombre() + " - Salario: $" + salario);
+            }
+        }
+    }
+
 
     static void agregarTecnico() {
         Scanner scanner = new Scanner(System.in);

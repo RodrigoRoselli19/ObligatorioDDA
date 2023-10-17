@@ -16,7 +16,9 @@ public class ABMArbitro {
             System.out.println("3. Modificar Árbitro");
             System.out.println("4. Mostrar Árbitros");
             System.out.println("5. Buscar Árbitro por Cédula");
-            System.out.println("6. Salir");
+            System.out.println("6. Calcular salario de jugador");
+            System.out.println("7. Precalentar");
+            System.out.println("8. Salir");
             System.out.print("\nSeleccione una opción: ");
 
             int opcion;
@@ -40,6 +42,12 @@ public class ABMArbitro {
                         buscarArbitroPorCedula();
                         break;
                     case 6:
+                        calcularSalario();
+                        break;
+                    case 7:
+                        precalentar();
+                        break;
+                    case 8:
                         salir = true;
                         break;
                     default:
@@ -52,6 +60,39 @@ public class ABMArbitro {
             }
         }
         scanner.close();
+    }
+
+    static void precalentar()
+    {
+         Scanner scanner = new Scanner(System.in);
+         System.out.print("Ingrese el nombre del árbitro que precalentará: ");
+         String nombreArbitro = scanner.nextLine();
+         boolean arbitroEncontrado = false;
+
+         for (Arbitro arbitro : listaArbitro) {
+             if (arbitro.getNombre().equalsIgnoreCase(nombreArbitro)) {
+                 arbitro.precalentar();
+                 arbitroEncontrado = true;
+                 break;
+             }
+         }
+
+         if (!arbitroEncontrado) {
+             System.out.println("Árbitro no encontrado.");
+         }
+     }
+
+    static void calcularSalario() {
+        System.out.println("Calculando salarios para todos los árbitros:\n");
+
+        if (listaArbitro.isEmpty()) {
+            System.out.println("No hay árbitros en la lista.");
+        } else {
+            for (Arbitro arbitro : listaArbitro) {
+                double salario = arbitro.calcularSalario();
+                System.out.println(arbitro.getNombre() + " - Salario: $" + salario);
+            }
+        }
     }
 
     static void agregarArbitro() {
@@ -75,7 +116,9 @@ public class ABMArbitro {
         scanner.nextLine(); // Consumir la nueva línea después del número
 
         listaArbitro.add(new Arbitro(cedula, nombre, apellido, salario, añosExperiencia));
+        System.out.println("Arbitro ingrsado con exito");
         mostrarArbitros();
+
     }
 
     static void mostrarArbitros() {
