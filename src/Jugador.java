@@ -1,7 +1,7 @@
 public class Jugador extends Persona{
 
     private String posicion;
-    private String equipo;
+    private Equipo equipo;
     private int minutos;
 
     public String getPosicion(){
@@ -12,10 +12,10 @@ public class Jugador extends Persona{
         this.posicion = posicion;
     }
 
-    public String getEquipo(){
+    public Equipo getEquipo(){
         return equipo;
     }
-public void setEquipo(String equipo){
+public void setEquipo(Equipo equipo){
         this.equipo = equipo;
 }
 
@@ -27,7 +27,7 @@ public void setEquipo(String equipo){
         this.minutos = minutos;
     }
 
-    public Jugador(String cedula, String nombre, String apellido, double salario, String posicion, String equipo) {
+    public Jugador(String cedula, String nombre, String apellido, double salario, String posicion, Equipo equipo) {
         super(cedula, nombre, apellido, salario);
         this.posicion = posicion;
         this.equipo = equipo;

@@ -1,12 +1,12 @@
 public class Tecnico extends Persona {
-    private String equipo;
+    private Equipo equipo;
     private int partidosGanados;
 
-    public String getEquipo() {
+    public Equipo getEquipo() {
         return equipo;
     }
 
-    public void setEquipo(String equipo) {
+    public void setEquipo(Equipo equipo) {
         this.equipo = equipo;
     }
 
@@ -18,7 +18,7 @@ public class Tecnico extends Persona {
         this.partidosGanados = partidosGanados;
     }
 
-    public Tecnico(String cedula, String nombre, String apellido,double salario, String equipo) {
+    public Tecnico(String cedula, String nombre, String apellido,double salario, Equipo equipo) {
         super(cedula, nombre, apellido, salario);
         this.equipo = equipo;
         this.partidosGanados = 0;

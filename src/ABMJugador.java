@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 public class ABMJugador {
     static List<Jugador> listaJugador = new ArrayList<>();
+    static List<Equipo> listaEquipos = new ArrayList<>();
     public static void main(String[] args) {
             boolean salir = false;
             Scanner scanner = new Scanner(System.in);
@@ -17,7 +18,7 @@ public class ABMJugador {
                 System.out.println("5. Buscar Jugador por Nombre o ID");
                 System.out.println("6. Calcular salario de jugador");
                 System.out.println("7. Precalentar");
-                System.out.println("7. Salir");
+                System.out.println("8. Salir");
                 System.out.print("\nSeleccione una opción: ");
 
                 int opcion;
@@ -113,18 +114,30 @@ public class ABMJugador {
                 System.out.print("Posicion: ");
                 String posicion = scanner.nextLine();
 
-                System.out.print("Equipo: ");
-                String equipo = scanner.nextLine();
+                System.out.println("Equipos disponibles:");
+                for (Equipo equipo : listaEquipos) {
+                    System.out.println(equipo.getNombreE());
+                 }
+                System.out.print("Seleccione un equipo por su nombre: ");
+                String nombreEquipo = scanner.nextLine();
+
+                Equipo equipoSeleccionado = null;
+                for (Equipo equipo : listaEquipos) {
+                if (equipo.getNombreE().equalsIgnoreCase(nombreEquipo)) {
+                equipoSeleccionado = equipo;
+                break;
+                    }
+                }
 
                 int jugadoresPorEquipo = 0;
 
                 for (Jugador jugador : listaJugador) {
-                    if (jugador.getEquipo().equalsIgnoreCase(equipo)) {
+                    if (jugador.getEquipo().equals(equipoSeleccionado)) {
                         jugadoresPorEquipo++;
                     }
                 }
-                if (jugadoresPorEquipo < 7) {
-                listaJugador.add(new Jugador(cedula, nombre, apellido, salario, posicion, equipo));
+                if (jugadoresPorEquipo < 7 || equipoSeleccionado != null) {
+                listaJugador.add(new Jugador(cedula, nombre, apellido, salario, posicion, equipoSeleccionado));
                 mostrarListaJugadores();
                 } else {
                 System.out.println("Ya ha superado el máximo de jugadores (7) para este equipo.");
@@ -230,15 +243,27 @@ public class ABMJugador {
             double nuevoSalario = scanner.nextInt();
             System.out.print("Posicion: ");
             String nuevaPosicion = scanner.nextLine();
-            System.out.print("Equipo: ");
-            String nuevoEquipo = scanner.nextLine();
+            System.out.println("Equipos disponibles:");
+            for (Equipo equipo : listaEquipos) {
+                System.out.println(equipo.getNombreE());
+            }
+            System.out.print("Seleccione un equipo por su nombre: ");
+            String nombreEquipo = scanner.nextLine();
+
+            Equipo equipoSeleccionado = null;
+            for (Equipo equipo : listaEquipos) {
+                if (equipo.getNombreE().equalsIgnoreCase(nombreEquipo)) {
+                    equipoSeleccionado = equipo;
+                    break;
+                }
+            }
             scanner.nextLine(); // Consumir la nueva línea después del número
 
             jugadorAModificar.setNombre(nuevoNombre);
             jugadorAModificar.setApellido(nuevoApellido);
             jugadorAModificar.setSalario(nuevoSalario);
             jugadorAModificar.setPosicion(nuevaPosicion);
-            jugadorAModificar.setEquipo(nuevoEquipo);
+            jugadorAModificar.setEquipo(equipoSeleccionado);
             mostrarListaJugadores();
         } else {
             System.out.println("Cedula no encontrada. \n");

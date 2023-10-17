@@ -2,8 +2,8 @@ public class Partido {
 
     private String fecha;
     private String hora;
-    private String equipoA;
-    private String equipoB;
+    private Equipo equipoA;
+    private Equipo equipoB;
     private Arbitro arbitro;
 
     public String getFecha() {
@@ -22,19 +22,19 @@ public class Partido {
         this.hora = hora;
     }
 
-    public String getEquipoA() {
+    public Equipo getEquipoA() {
         return equipoA;
     }
 
-    public void setEquipoA(String equipoA) {
+    public void setEquipoA(Equipo equipoA) {
         this.equipoA = equipoA;
     }
 
-    public String getEquipoB() {
+    public Equipo getEquipoB() {
         return equipoB;
     }
 
-    public void setEquipoB(String equipoB) {
+    public void setEquipoB(Equipo equipoB) {
         this.equipoB = equipoB;
     }
 
@@ -46,7 +46,7 @@ public class Partido {
         this.arbitro = arbitro;
     }
 
-    public Partido(String fecha, String hora, String equipoA, String equipoB, Arbitro arbitro) {
+    public Partido(String fecha, String hora, Equipo equipoA, Equipo equipoB, Arbitro arbitro) {
         this.fecha = fecha;
         this.hora = hora;
         this.equipoA = equipoA;

@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class ABMTecnico {
     static List<Tecnico> listaTecnicos = new ArrayList<>();
+    static List<Equipo> listaEquipos = new ArrayList<>();
 
     public static void main(String[] args) {
         boolean salir = false;
@@ -87,17 +88,29 @@ public class ABMTecnico {
         System.out.print("Salario: ");
         double salario = scanner.nextInt();
         scanner.nextLine();
-        System.out.print("Equipo: ");
-        String equipo = scanner.nextLine();
+        System.out.println("Equipos disponibles:");
+        for (Equipo equipo : listaEquipos) {
+            System.out.println(equipo.getNombreE());
+        }
+        System.out.print("Seleccione un equipo por su nombre: ");
+        String nombreEquipo = scanner.nextLine();
+
+        Equipo equipoSeleccionado = null;
+        for (Equipo equipo : listaEquipos) {
+            if (equipo.getNombreE().equalsIgnoreCase(nombreEquipo)) {
+                equipoSeleccionado = equipo;
+                break;
+            }
+        }
 
         int tecnicoPorEquipo = 0;
         for (Tecnico tecnico: listaTecnicos) {
-            if (tecnico.getEquipo().equalsIgnoreCase(equipo)){
+            if (tecnico.getEquipo().equals(equipoSeleccionado)){
                 tecnicoPorEquipo++;
             }
         }
-        if (tecnicoPorEquipo < 7){
-            listaTecnicos.add(new Tecnico(cedula, nombre, apellido, salario, equipo));
+        if (tecnicoPorEquipo < 1){
+            listaTecnicos.add(new Tecnico(cedula, nombre, apellido, salario, equipoSeleccionado));
             mostrarTecnicos();
         } else {
             System.out.println("Ya tiene tecnico este equipo");
@@ -156,13 +169,25 @@ public class ABMTecnico {
             String nuevoApellido = scanner.nextLine();
             System.out.print("Salario: ");
             double nuevoSalario = scanner.nextInt();
-            System.out.print("Equipo: ");
-            String nuevoEquipo = scanner.nextLine();
+            System.out.println("Equipos disponibles:");
+            for (Equipo equipo : listaEquipos) {
+                System.out.println(equipo.getNombreE());
+            }
+            System.out.print("Seleccione un equipo por su nombre: ");
+            String nombreEquipo = scanner.nextLine();
+
+            Equipo equipoSeleccionado = null;
+            for (Equipo equipo : listaEquipos) {
+                if (equipo.getNombreE().equalsIgnoreCase(nombreEquipo)) {
+                    equipoSeleccionado = equipo;
+                    break;
+                }
+            }
 
             tecnicoAModificar.setNombre(nuevoNombre);
             tecnicoAModificar.setApellido(nuevoApellido);
             tecnicoAModificar.setSalario(nuevoSalario);
-            tecnicoAModificar.setEquipo(nuevoEquipo);
+            tecnicoAModificar.setEquipo(equipoSeleccionado);
             mostrarTecnicos();
         } else {
             System.out.println("Cédula no encontrada. \n");

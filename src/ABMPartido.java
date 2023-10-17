@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class ABMPartido {
     static List<Partido> listaPartidos = new ArrayList<>();
     static List<Arbitro> listaArbitros = new ArrayList<>();
+    static List<Equipo> listaEquipos = new ArrayList<>();
 
     public static void main(String[] args) {
         boolean salir = false;
@@ -91,11 +92,35 @@ public class ABMPartido {
         System.out.print("hora: ");
         String hora = scanner.nextLine();
 
-        System.out.print("EquipoA: ");
-        String EquipoA = scanner.nextLine();
+        System.out.println("Equipos disponibles:");
+        for (Equipo equipo : listaEquipos) {
+            System.out.println(equipo.getNombreE());
+        }
+        System.out.print("Seleccione un equipo por su nombre: ");
+        String nombreEquipoA = scanner.nextLine();
 
-        System.out.print("EquipoB: ");
-        String EquipoB = scanner.nextLine();
+        Equipo equipoSeleccionadoB = null;
+        for (Equipo equipo : listaEquipos) {
+            if (equipo.getNombreE().equalsIgnoreCase(nombreEquipoA)) {
+                equipoSeleccionadoB = equipo;
+                break;
+            }
+        }
+
+        System.out.println("Equipos disponibles:");
+        for (Equipo equipo : listaEquipos) {
+            System.out.println(equipo.getNombreE());
+        }
+        System.out.print("Seleccione un equipo por su nombre: ");
+        String nombreEquipoB = scanner.nextLine();
+
+        Equipo equipoSeleccionadoA = null;
+        for (Equipo equipo : listaEquipos) {
+            if (equipo.getNombreE().equalsIgnoreCase(nombreEquipoB)) {
+                equipoSeleccionadoA = equipo;
+                break;
+            }
+        }
 
         System.out.println("Árbitros disponibles:");
         for (Arbitro arbitro : listaArbitros) {
@@ -112,8 +137,8 @@ public class ABMPartido {
             }
         }
 
-        if (arbitroSeleccionado != null) {
-            listaPartidos.add(new Partido(fecha, hora, EquipoA, EquipoB, arbitroSeleccionado));
+        if (arbitroSeleccionado != null || equipoSeleccionadoA != null || equipoSeleccionadoB != null) {
+            listaPartidos.add(new Partido(fecha, hora, equipoSeleccionadoA, equipoSeleccionadoB, arbitroSeleccionado));
             System.out.println("Partido agregado con éxito.");
         } else {
             System.out.println("Árbitro no encontrado. El partido no se ha creado.");
@@ -166,11 +191,35 @@ public class ABMPartido {
                 System.out.print("Nueva hora: ");
                 String nuevaHora = scanner.nextLine();
 
-                System.out.print("Nuevo Equipo A: ");
-                String nuevoEquipoA = scanner.nextLine();
+                System.out.println("Equipos disponibles:");
+                for (Equipo equipo : listaEquipos) {
+                    System.out.println(equipo.getNombreE());
+                }
+                System.out.print("Seleccione un equipo por su nombre: ");
+                String nombreEquipoA = scanner.nextLine();
 
-                System.out.print("Nuevo Equipo B: ");
-                String nuevoEquipoB = scanner.nextLine();
+                Equipo equipoSeleccionadoB = null;
+                for (Equipo equipo : listaEquipos) {
+                    if (equipo.getNombreE().equalsIgnoreCase(nombreEquipoA)) {
+                        equipoSeleccionadoB = equipo;
+                        break;
+                    }
+                }
+
+                System.out.println("Equipos disponibles:");
+                for (Equipo equipo : listaEquipos) {
+                    System.out.println(equipo.getNombreE());
+                }
+                System.out.print("Seleccione un equipo por su nombre: ");
+                String nombreEquipoB = scanner.nextLine();
+
+                Equipo equipoSeleccionadoA = null;
+                for (Equipo equipo : listaEquipos) {
+                    if (equipo.getNombreE().equalsIgnoreCase(nombreEquipoB)) {
+                        equipoSeleccionadoA = equipo;
+                        break;
+                    }
+                }
 
                 System.out.println("Árbitros disponibles:");
                 for (Arbitro arbitro : listaArbitros) {
@@ -190,8 +239,8 @@ public class ABMPartido {
                 if (arbitroSeleccionado != null) {
                     partido.setFecha(nuevaFecha);
                     partido.setHora(nuevaHora);
-                    partido.setEquipoA(nuevoEquipoA);
-                    partido.setEquipoB(nuevoEquipoB);
+                    partido.setEquipoA(equipoSeleccionadoA);
+                    partido.setEquipoB(equipoSeleccionadoB);
                     partido.setArbitro(arbitroSeleccionado);
                     System.out.println("Partido modificado con éxito.");
                 } else {
