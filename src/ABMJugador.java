@@ -1,4 +1,4 @@
-
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,8 +19,8 @@ public class ABMJugador {
                 System.out.println("6. Calcular salario de jugador");
                 System.out.println("7. Precalentar");
                 System.out.println("8. Salir");
-                System.out.print("\nSeleccione una opción: ");
-
+                System.out.print("\nSeleccione una opción: \n");
+                mostrarListaJugadores();
                 int opcion;
                 if (scanner.hasNextInt()) {
                     opcion = scanner.nextInt();
@@ -128,20 +128,40 @@ public class ABMJugador {
                 break;
                     }
                 }
+        if (equipoSeleccionado != null) {
+            // Asegurarte de que el equipo seleccionado sea válido antes de agregar el jugador
+            int jugadoresPorEquipo = 0;
 
-                int jugadoresPorEquipo = 0;
-
-                for (Jugador jugador : listaJugador) {
-                    if (jugador.getEquipo().equals(equipoSeleccionado)) {
-                        jugadoresPorEquipo++;
-                    }
+            for (Jugador jugador : listaJugador) {
+                if (jugador.getEquipo() != null && jugador.getEquipo().equals(equipoSeleccionado)) {
+                    jugadoresPorEquipo++;
                 }
-                if (jugadoresPorEquipo < 7 || equipoSeleccionado != null) {
-                listaJugador.add(new Jugador(cedula, nombre, apellido, salario, posicion, equipoSeleccionado));
+            }
+
+            if (jugadoresPorEquipo < 7) {
+                Jugador nuevoJugador = new Jugador(cedula, nombre, apellido, salario, posicion, equipoSeleccionado);
+                listaJugador.add(nuevoJugador);
+                System.out.println("Jugador agregado: " + nuevoJugador);
                 mostrarListaJugadores();
-                } else {
+            } else {
                 System.out.println("Ya ha superado el máximo de jugadores (7) para este equipo.");
-                }
+            }
+        } else {
+            System.out.println("Equipo no encontrado. No se pudo agregar el jugador.");
+        }
+//                int jugadoresPorEquipo = 0;
+//
+//                for (Jugador jugador : listaJugador) {
+//                    if (jugador.getEquipo().equals(equipoSeleccionado)) {
+//                        jugadoresPorEquipo++;
+//                    }
+//                }
+//                if (jugadoresPorEquipo < 7 || equipoSeleccionado != null) {
+//                listaJugador.add(new Jugador(cedula, nombre, apellido, salario, posicion, equipoSeleccionado));
+//                mostrarListaJugadores();
+//                } else {
+//                System.out.println("Ya ha superado el máximo de jugadores (7) para este equipo.");
+//                }
         }
 
     static void mostrarListaJugadores() {

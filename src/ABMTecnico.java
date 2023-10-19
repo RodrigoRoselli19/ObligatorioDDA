@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+import java.io.*;
 public class ABMTecnico {
     static List<Tecnico> listaTecnicos = new ArrayList<>();
     static List<Equipo> listaEquipos = new ArrayList<>();
@@ -10,6 +10,7 @@ public class ABMTecnico {
         boolean salir = false;
         Scanner scanner = new Scanner(System.in);
 
+        cargarEquipos();
         while (!salir) {
             System.out.println("\nGestión de Técnicos\n");
             System.out.println("1. Agregar Técnico");
@@ -109,7 +110,7 @@ public class ABMTecnico {
                 tecnicoPorEquipo++;
             }
         }
-        if (tecnicoPorEquipo < 1){
+        if (tecnicoPorEquipo <= 1){
             listaTecnicos.add(new Tecnico(cedula, nombre, apellido, salario, equipoSeleccionado));
             mostrarTecnicos();
         } else {
@@ -211,6 +212,16 @@ public class ABMTecnico {
             System.out.println("Técnico encontrado:\n" + tecnico);
         } else {
             System.out.println("Técnico no encontrado. \n");
+        }
+    }
+    private static void cargarEquipos() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("equipos.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                listaEquipos.add(new Equipo(line));
+            }
+        } catch (IOException e) {
+            // Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
         }
     }
 }

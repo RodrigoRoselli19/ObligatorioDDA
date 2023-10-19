@@ -16,6 +16,6 @@ public class Equipo {
     @Override
     public String toString() {
         return "Equipo: " +
-                "nombre equipo='" + nombreE;
+                "nombre equipo=" + nombreE+'\n';
     }
 }

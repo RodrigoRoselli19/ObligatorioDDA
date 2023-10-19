@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 public class ABMPartido {
     static List<Partido> listaPartidos = new ArrayList<>();
     static List<Arbitro> listaArbitros = new ArrayList<>();
@@ -21,7 +20,6 @@ public class ABMPartido {
             System.out.println("6. Mostrar arbitro del partido");
             System.out.println("7. Salir");
             System.out.print("\nSeleccione una opción: ");
-
             int opcion;
             if (scanner.hasNextInt()) {
                 opcion = scanner.nextInt();
@@ -140,11 +138,18 @@ public class ABMPartido {
         if (arbitroSeleccionado != null || equipoSeleccionadoA != null || equipoSeleccionadoB != null) {
             listaPartidos.add(new Partido(fecha, hora, equipoSeleccionadoA, equipoSeleccionadoB, arbitroSeleccionado));
             System.out.println("Partido agregado con éxito.");
+            mostrarPartidos();
         } else {
             System.out.println("Árbitro no encontrado. El partido no se ha creado.");
         }
     }
 
+    static void mostrarPartidos(){
+        System.out.println("Lista de Partidos:");
+        for (Partido partido : listaPartidos) {
+            System.out.println(partido);
+        }
+    }
     static void buscarPartidoPorFecha() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese la fecha del partido a buscar: ");
