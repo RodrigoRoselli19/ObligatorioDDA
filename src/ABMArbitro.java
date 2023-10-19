@@ -210,7 +210,7 @@ public class ABMArbitro {
     private static void guardarArbitros() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(ARBITROS_FILENAME))) {
             for (Arbitro arbitro : listaArbitro) {
-                writer.println(arbitro.toString());
+                writer.println(arbitro.getCedula()+" " +arbitro.getNombre()+" " +arbitro.getApellido()+" " +arbitro.getSalario()+" "+arbitro.getAñosExperiencia()+" "+arbitro.getPartidosDirigidos());
             }
         } catch (IOException e) {
             e.printStackTrace();

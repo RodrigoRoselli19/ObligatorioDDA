@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -5,11 +6,14 @@ public class ABMPartido {
     static List<Partido> listaPartidos = new ArrayList<>();
     static List<Arbitro> listaArbitros = new ArrayList<>();
     static List<Equipo> listaEquipos = new ArrayList<>();
+    private static final String PARTIDOS_FILENAME = "partidos.txt";
 
     public static void main(String[] args) {
         boolean salir = false;
         Scanner scanner = new Scanner(System.in);
-
+        cargarArbitros();
+        cargarEquipos();
+        cargarPartidos();
         while (!salir) {
             System.out.println("\nRealización de Partido\n");
             System.out.println("1. Agregar Partido");
@@ -139,6 +143,7 @@ public class ABMPartido {
             listaPartidos.add(new Partido(fecha, hora, equipoSeleccionadoA, equipoSeleccionadoB, arbitroSeleccionado));
             System.out.println("Partido agregado con éxito.");
             mostrarPartidos();
+            guardarPartidos();
         } else {
             System.out.println("Árbitro no encontrado. El partido no se ha creado.");
         }
@@ -247,6 +252,7 @@ public class ABMPartido {
                     partido.setEquipoA(equipoSeleccionadoA);
                     partido.setEquipoB(equipoSeleccionadoB);
                     partido.setArbitro(arbitroSeleccionado);
+                    guardarPartidos();
                     System.out.println("Partido modificado con éxito.");
                 } else {
                     System.out.println("Árbitro no encontrado. El partido no se ha modificado.");
@@ -273,5 +279,54 @@ public class ABMPartido {
         }
 
         System.out.println("No se encontró un partido con la fecha especificada.");
+    }
+    // Método para guardar la lista de equipos en un archivo de texto
+    private static void guardarPartidos() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(PARTIDOS_FILENAME))) {
+            for (Partido partido : listaPartidos) {
+                writer.println(partido.getFecha()+" "+partido.getHora()+" "+partido.getEquipoA()+" "+partido.getEquipoB()+" "+partido.getArbitro());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    // Método para cargar la lista de equipos desde un archivo de texto
+    private static void cargarPartidos() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(PARTIDOS_FILENAME))) {
+            String fecha = "";
+            String hora = "";
+            Equipo equipoA = null;
+            Equipo equipoB = null;
+            Arbitro arbitro = null;
+            while ((fecha = reader.readLine()) != null || (hora = reader.readLine()) != null) {
+                listaPartidos.add(new Partido(fecha, hora, equipoA, equipoB, arbitro));
+            }
+        } catch (IOException e) {
+            // Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
+        }
+    }
+    private static void cargarEquipos() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("equipos.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                listaEquipos.add(new Equipo(line));
+            }
+        } catch (IOException e) {
+            // Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
+        }
+    }
+    private static void cargarArbitros() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("arbitros.txt"))) {
+            String cedula;
+            String nombre = "";
+            String apellido = "";
+            double salario = 0;
+            int exp = 0;
+            while ((cedula = reader.readLine()) != null || (nombre = reader.readLine()) != null || (apellido = reader.readLine()) != null) {
+                listaArbitros.add(new Arbitro(cedula, nombre, apellido, salario, exp));
+            }
+        } catch (IOException e) {
+            System.out.println("Aun no se ha creado un Arbitro");// Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
+        }
     }
 }

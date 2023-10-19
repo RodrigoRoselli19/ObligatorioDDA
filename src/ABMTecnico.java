@@ -7,7 +7,6 @@ public class ABMTecnico {
     static List<Equipo> listaEquipos = new ArrayList<>();
     private static final String TECNICOS_FILENAME = "tecnicos.txt";
 
-
     public static void main(String[] args) {
         boolean salir = false;
         Scanner scanner = new Scanner(System.in);
@@ -133,18 +132,18 @@ public class ABMTecnico {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese la cédula del técnico que desea eliminar: ");
         String cedulaEliminar = scanner.nextLine();
-
-        Tecnico tecnicoAEliminar = null;
+        Tecnico[] arrayTecnicos = listaTecnicos.toArray(new Tecnico[0]);
         for (Tecnico tecnico : listaTecnicos) {
-            if (tecnico.getCedula().equals(cedulaEliminar)) {
-                tecnicoAEliminar = tecnico;
+            if (arrayTecnicos[0].equals(cedulaEliminar)) {
+                arrayTecnicos[0] = tecnico;
                 break;
             }
         }
 
-        if (tecnicoAEliminar != null) {
-            listaTecnicos.remove(tecnicoAEliminar);
+        if (arrayTecnicos[0] != null) {
+            listaTecnicos.remove(arrayTecnicos[0]);
             mostrarTecnicos();
+            guardarTecnicos();
         } else {
             System.out.println("Cédula no encontrada. \n");
         }
@@ -221,7 +220,7 @@ public class ABMTecnico {
     private static void guardarTecnicos() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(TECNICOS_FILENAME))) {
             for (Tecnico tecnico : listaTecnicos) {
-                writer.println(tecnico.toString());
+                writer.println(tecnico.getCedula()+" " +tecnico.getNombre()+" " +tecnico.getApellido()+" " +tecnico.getSalario()+" " +tecnico.getEquipo());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -230,7 +229,7 @@ public class ABMTecnico {
     // Método para cargar la lista de equipos desde un archivo de texto
     private static void cargarTecnicos() {
         try (BufferedReader reader = new BufferedReader(new FileReader(TECNICOS_FILENAME))) {
-            String cedula;
+            String cedula = "";
             String nombre = "";
             String apellido = "";
             double salario = 0;

@@ -350,7 +350,7 @@ public class ABMJugador {
     private static void guardarJugadores() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(JUGADORES_FILENAME))) {
             for (Jugador jugador : listaJugador) {
-                writer.println(jugador.toString());
+                writer.println(jugador.getCedula()+" " +jugador.getNombre()+" " +jugador.getApellido()+" " +jugador.getSalario()+" "+jugador.getPosicion()+" "+jugador.getEquipo());
             }
         } catch (IOException e) {
             e.printStackTrace();

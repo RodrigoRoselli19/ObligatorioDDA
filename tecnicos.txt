@@ -1,1 +1,0 @@
-Persona: Cedula='1241512', Nombre='Jose', Apellido='Rodriguez', Salario='24000.0' Tecnico: Equipo: nombre equipo= Real Madrid, Partidos Ganados=0
