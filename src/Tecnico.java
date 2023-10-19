@@ -31,8 +31,8 @@ public class Tecnico extends Persona {
     @Override
     public String toString() {
         return super.toString()+
-                "Tecnico: " +
-                "Equipo='" + equipo + '\'' +
+                " Tecnico: " +
+                 equipo +
                 ", Partidos Ganados=" + partidosGanados;
     }
 

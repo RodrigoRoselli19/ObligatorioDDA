@@ -15,7 +15,7 @@ public class Equipo {
 
     @Override
     public String toString() {
-        return "Equipo: " +
+        return " Equipo: " +
                 "nombre equipo=" + nombreE+'\n';
     }
 }

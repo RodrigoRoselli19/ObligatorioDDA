@@ -32,7 +32,7 @@ public class Arbitro extends Persona{
         @Override
         public String toString() {
             return super.toString()+
-                    "Arbitro: " +
+                    " Arbitro: " +
                     "Partidos Dirigidos=" + partidosDirigidos +
                     ", Años Experiencia=" + añosExperiencia
                     ;

@@ -5,11 +5,13 @@ import java.io.*;
 public class ABMTecnico {
     static List<Tecnico> listaTecnicos = new ArrayList<>();
     static List<Equipo> listaEquipos = new ArrayList<>();
+    private static final String TECNICOS_FILENAME = "tecnicos.txt";
+
 
     public static void main(String[] args) {
         boolean salir = false;
         Scanner scanner = new Scanner(System.in);
-
+        cargarTecnicos();
         cargarEquipos();
         while (!salir) {
             System.out.println("\nGestión de Técnicos\n");
@@ -113,6 +115,7 @@ public class ABMTecnico {
         if (tecnicoPorEquipo <= 1){
             listaTecnicos.add(new Tecnico(cedula, nombre, apellido, salario, equipoSeleccionado));
             mostrarTecnicos();
+            guardarTecnicos();
         } else {
             System.out.println("Ya tiene tecnico este equipo");
         }
@@ -212,6 +215,31 @@ public class ABMTecnico {
             System.out.println("Técnico encontrado:\n" + tecnico);
         } else {
             System.out.println("Técnico no encontrado. \n");
+        }
+    }
+    // Método para guardar la lista de equipos en un archivo de texto
+    private static void guardarTecnicos() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(TECNICOS_FILENAME))) {
+            for (Tecnico tecnico : listaTecnicos) {
+                writer.println(tecnico.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    // Método para cargar la lista de equipos desde un archivo de texto
+    private static void cargarTecnicos() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(TECNICOS_FILENAME))) {
+            String cedula;
+            String nombre = "";
+            String apellido = "";
+            double salario = 0;
+            Equipo equipo = null;
+            while ((cedula = reader.readLine()) != null || (nombre = reader.readLine()) != null || (apellido = reader.readLine()) != null) {
+                listaTecnicos.add(new Tecnico(cedula, nombre, apellido, salario, equipo));
+            }
+        } catch (IOException e) {
+            // Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
         }
     }
     private static void cargarEquipos() {

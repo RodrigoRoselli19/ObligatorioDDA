@@ -37,9 +37,9 @@ public void setEquipo(Equipo equipo){
     @Override
     public String toString() {
         return super.toString()+
-                "Jugador: " +
+                " Jugador: " +
                 "Posicion='" + posicion + '\'' +
-                ", Equipo='" + equipo + '\'' +
+                 equipo + '\'' +
                 ", Minutos=" + minutos + '\'';
     }
 

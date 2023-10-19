@@ -5,10 +5,12 @@ import java.util.Scanner;
 public class ABMJugador {
     static List<Jugador> listaJugador = new ArrayList<>();
     static List<Equipo> listaEquipos = new ArrayList<>();
+    private static final String JUGADORES_FILENAME = "jugadores.txt";
     public static void main(String[] args) {
             boolean salir = false;
             Scanner scanner = new Scanner(System.in);
-
+            cargarJugadores();
+            cargarEquipos();
             while (!salir) {
                 System.out.println("\nGestión de Lista de Jugador\n");
                 System.out.println("1. Agregar Jugador");
@@ -143,25 +145,13 @@ public class ABMJugador {
                 listaJugador.add(nuevoJugador);
                 System.out.println("Jugador agregado: " + nuevoJugador);
                 mostrarListaJugadores();
+                guardarJugadores();
             } else {
                 System.out.println("Ya ha superado el máximo de jugadores (7) para este equipo.");
             }
         } else {
             System.out.println("Equipo no encontrado. No se pudo agregar el jugador.");
-        }
-//                int jugadoresPorEquipo = 0;
-//
-//                for (Jugador jugador : listaJugador) {
-//                    if (jugador.getEquipo().equals(equipoSeleccionado)) {
-//                        jugadoresPorEquipo++;
-//                    }
-//                }
-//                if (jugadoresPorEquipo < 7 || equipoSeleccionado != null) {
-//                listaJugador.add(new Jugador(cedula, nombre, apellido, salario, posicion, equipoSeleccionado));
-//                mostrarListaJugadores();
-//                } else {
-//                System.out.println("Ya ha superado el máximo de jugadores (7) para este equipo.");
-//                }
+            }
         }
 
     static void mostrarListaJugadores() {
@@ -355,6 +345,42 @@ public class ABMJugador {
                 break;
         }
 
+    }
+    // Método para guardar la lista de equipos en un archivo de texto
+    private static void guardarJugadores() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(JUGADORES_FILENAME))) {
+            for (Jugador jugador : listaJugador) {
+                writer.println(jugador.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    // Método para cargar la lista de equipos desde un archivo de texto
+    private static void cargarJugadores() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(JUGADORES_FILENAME))) {
+            String cedula;
+            String nombre = "";
+            String apellido = "";
+            double salario = 0;
+            String posicion = "";
+            Equipo equipo = null;
+            while ((cedula = reader.readLine()) != null || (nombre = reader.readLine()) != null || (apellido = reader.readLine()) != null || (posicion = reader.readLine()) != null) {
+                listaJugador.add(new Jugador(cedula, nombre, apellido, salario, posicion, equipo));
+            }
+        } catch (IOException e) {
+            // Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
+        }
+    }
+    private static void cargarEquipos() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("equipos.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                listaEquipos.add(new Equipo(line));
+            }
+        } catch (IOException e) {
+            // Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
+        }
     }
 }
 

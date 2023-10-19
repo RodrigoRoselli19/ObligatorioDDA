@@ -1,14 +1,15 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ABMArbitro {
     static List<Arbitro> listaArbitro = new ArrayList<>();
-
+    private static final String ARBITROS_FILENAME = "arbitros.txt";
     public static void main(String[] args) {
         boolean salir = false;
         Scanner scanner = new Scanner(System.in);
-
+        cargarArbitros();
         while (!salir) {
             System.out.println("\nGestión de Lista de Árbitros\n");
             System.out.println("1. Agregar Árbitro");
@@ -118,7 +119,7 @@ public class ABMArbitro {
         listaArbitro.add(new Arbitro(cedula, nombre, apellido, salario, añosExperiencia));
         System.out.println("Arbitro ingrsado con exito");
         mostrarArbitros();
-
+        guardarArbitros();
     }
 
     static void mostrarArbitros() {
@@ -203,6 +204,31 @@ public class ABMArbitro {
             System.out.println("Árbitro encontrado:\n" + arbitro);
         } else {
             System.out.println("Árbitro no encontrado. \n");
+        }
+    }
+    // Método para guardar la lista de equipos en un archivo de texto
+    private static void guardarArbitros() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(ARBITROS_FILENAME))) {
+            for (Arbitro arbitro : listaArbitro) {
+                writer.println(arbitro.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    // Método para cargar la lista de equipos desde un archivo de texto
+    private static void cargarArbitros() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(ARBITROS_FILENAME))) {
+            String cedula;
+            String nombre = "";
+            String apellido = "";
+            double salario = 0;
+            int exp = 0;
+            while ((cedula = reader.readLine()) != null || (nombre = reader.readLine()) != null || (apellido = reader.readLine()) != null) {
+                listaArbitro.add(new Arbitro(cedula, nombre, apellido, salario, exp));
+            }
+        } catch (IOException e) {
+            System.out.println("Aun no se ha creado un Arbitro");// Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
         }
     }
 }
