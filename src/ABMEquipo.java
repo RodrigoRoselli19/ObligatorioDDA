@@ -14,28 +14,28 @@ public class ABMEquipo {
         Scanner scanner = new Scanner(System.in);
 
         cargarEquipos();
-
+        mostrarEquipos();
         while (!salir) {
             System.out.println("\nGestión de Equipos\n");
-            System.out.println("1. Mostrar Jugadores por Equipo");
-            System.out.println("2. Mostrar Técnicos");
-            System.out.println("3. Agregar equipo");
+            System.out.println("1. Agregar equipo");
+            System.out.println("2. Eliminar equipo");
+            System.out.println("3. Mostrar Jugadores por Equipo");
             System.out.println("4. Salir");
             System.out.print("\nSeleccione una opción: ");
-            mostrarEquipos();
+
             int opcion;
             if (scanner.hasNextInt()) {
                 opcion = scanner.nextInt();
                 scanner.nextLine(); // Consumir la nueva línea después del número
                 switch (opcion) {
                     case 1:
-                        listarJugadoresPorEquipo();
+                        agregarEquipo();
                         break;
                     case 2:
-                        mostrarTecnicos();
+                        eliminarEquipo();
                         break;
                     case 3:
-                        agregarEquipo();
+                        listarJugadoresPorEquipo();
                         break;
                     case 4:
                         salir = true;
@@ -66,7 +66,7 @@ public class ABMEquipo {
     }
 
     static void mostrarEquipos() {
-        System.out.println("Lista de Equipos:");
+        System.out.println("\n Lista de Equipos:");
         if (listaEquipos.isEmpty()) {
             System.out.println("No hay Equipos registrados.");
         } else {
@@ -96,18 +96,26 @@ public class ABMEquipo {
             // Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
         }
     }
-
-    static void mostrarTecnicos() {
-        System.out.println("Lista de Técnicos:");
-        if (listaTecnicos.isEmpty()) {
-            System.out.println("No hay técnicos registrados.");
-        } else {
-            for (Tecnico tecnico : listaTecnicos) {
-                System.out.println(tecnico);
+    static void eliminarEquipo() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el nombre del equipo que desea eliminar: ");
+        String nombre = scanner.nextLine();
+        Equipo[] arrayEquipo = listaEquipos.toArray(new Equipo[0]);
+        for (Equipo equipo : listaEquipos) {
+            if (arrayEquipo[0].equals(nombre)) {
+                arrayEquipo[0] = equipo;
+                break;
             }
         }
-    }
 
+        if (arrayEquipo[0] != null) {
+            listaEquipos.remove(arrayEquipo[0]);
+            mostrarEquipos();
+            guardarEquipos();
+        } else {
+            System.out.println("Equipo no encontrado. \n");
+        }
+    }
 
     static void listarJugadoresPorEquipo() {
         Scanner scanner = new Scanner(System.in);

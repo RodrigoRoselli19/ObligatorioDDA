@@ -133,20 +133,16 @@ public class ABMTecnico {
         System.out.print("Ingrese la cédula del técnico que desea eliminar: ");
         String cedulaEliminar = scanner.nextLine();
         Tecnico[] arrayTecnicos = listaTecnicos.toArray(new Tecnico[0]);
-        for (Tecnico tecnico : listaTecnicos) {
-            if (arrayTecnicos[0].equals(cedulaEliminar)) {
-                arrayTecnicos[0] = tecnico;
-                break;
+        for (int i = 0; i < arrayTecnicos.length; i++) {
+            Tecnico tecnico = arrayTecnicos[i];
+            if (tecnico.getCedula().equals(cedulaEliminar)) {
+                listaTecnicos.remove(tecnico);
+                mostrarTecnicos();
+                guardarTecnicos();
+                return;
             }
         }
-
-        if (arrayTecnicos[0] != null) {
-            listaTecnicos.remove(arrayTecnicos[0]);
-            mostrarTecnicos();
-            guardarTecnicos();
-        } else {
             System.out.println("Cédula no encontrada. \n");
-        }
     }
 
     static void modificarTecnico() {
@@ -192,6 +188,7 @@ public class ABMTecnico {
             tecnicoAModificar.setSalario(nuevoSalario);
             tecnicoAModificar.setEquipo(equipoSeleccionado);
             mostrarTecnicos();
+            guardarTecnicos();
         } else {
             System.out.println("Cédula no encontrada. \n");
         }

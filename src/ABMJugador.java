@@ -174,12 +174,13 @@ public class ABMJugador {
         switch (opcionEliminar) {
             case 1:
                 System.out.print("Ingrese la CI a eliminar: ");
-                int CIaEliminar = scanner.nextInt();
+                String CIaEliminar = scanner.nextLine();
                 scanner.nextLine(); // Consumir la nueva línea después del número
-
-                if (CIaEliminar >= 0 && CIaEliminar < listaJugador.size()) {
-                    listaJugador.remove(CIaEliminar - 1);
+                Jugador[] arrayJugador = listaJugador.toArray(new Jugador[0]);
+                if (arrayJugador[0].equals(CIaEliminar)) {
+                    listaJugador.remove(arrayJugador[0]);
                     mostrarListaJugadores();
+                    guardarJugadores();
                 } else {
                     System.out.println("Cedula fuera de rango. \n");
                 }
@@ -187,18 +188,18 @@ public class ABMJugador {
             case 2:
                 System.out.print("Ingrese el nombre a eliminar: ");
                 String nombreEliminar = scanner.nextLine();
-
-                Jugador jugadorPorNombre = null;
+                Jugador[] arrayJugadorN = listaJugador.toArray(new Jugador[1]);
                 for (Jugador jugador : listaJugador) {
-                    if (jugador.getNombre().equals(nombreEliminar)) {
-                        jugadorPorNombre = jugador;
+                    if (arrayJugadorN[1].equals(nombreEliminar)) {
+                        arrayJugadorN[1] = jugador;
                         break;
                     }
                 }
 
-                if (jugadorPorNombre != null) {
-                    listaJugador.remove(jugadorPorNombre);
+                if (arrayJugadorN[1] != null) {
+                    listaJugador.remove(arrayJugadorN[1]);
                     mostrarListaJugadores();
+                    guardarJugadores();
                 } else {
                     System.out.println("Nombre no encontrado. \n");
                 }
@@ -206,18 +207,18 @@ public class ABMJugador {
             case 3:
                 System.out.print("Ingrese el apellido a eliminar: ");
                 String apellidoEliminar = scanner.nextLine();
-
-                Jugador jugadorPorApellido = null;
+                Jugador[] arrayJugadorA = listaJugador.toArray(new Jugador[2]);
                 for (Jugador jugador : listaJugador) {
-                    if (jugador.getNombre().equals(apellidoEliminar)) {
-                        jugadorPorApellido = jugador;
+                    if (arrayJugadorA[2].equals(apellidoEliminar)) {
+                        arrayJugadorA[2] = jugador;
                         break;
                     }
                 }
 
-                if (jugadorPorApellido != null) {
-                    listaJugador.remove(jugadorPorApellido);
+                if (arrayJugadorA[2] != null) {
+                    listaJugador.remove(arrayJugadorA[2]);
                     mostrarListaJugadores();
+                    guardarJugadores();
                 } else {
                     System.out.println("Apellido no encontrado. \n");
                 }

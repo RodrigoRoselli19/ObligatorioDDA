@@ -17,7 +17,7 @@ public class ABMArbitro {
             System.out.println("3. Modificar Árbitro");
             System.out.println("4. Mostrar Árbitros");
             System.out.println("5. Buscar Árbitro por Cédula");
-            System.out.println("6. Calcular salario de jugador");
+            System.out.println("6. Calcular salario de arbitro");
             System.out.println("7. Precalentar");
             System.out.println("8. Salir");
             System.out.print("\nSeleccione una opción: ");
@@ -133,17 +133,17 @@ public class ABMArbitro {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese la cédula del árbitro que desea eliminar: ");
         String cedulaEliminar = scanner.nextLine();
+        Arbitro[] arrayArbitros = listaArbitro.toArray(new Arbitro[0]);
 
-        Arbitro arbitroAEliminar = null;
         for (Arbitro arbitro : listaArbitro) {
-            if (arbitro.getCedula().equals(cedulaEliminar)) {
-                arbitroAEliminar = arbitro;
+            if (arrayArbitros[0].equals(cedulaEliminar)) {
+                arrayArbitros[0] = arbitro;
                 break;
             }
         }
 
-        if (arbitroAEliminar != null) {
-            listaArbitro.remove(arbitroAEliminar);
+        if (arrayArbitros[0] != null) {
+            listaArbitro.remove(arrayArbitros[0]);
             mostrarArbitros();
         } else {
             System.out.println("Cédula no encontrada. \n");

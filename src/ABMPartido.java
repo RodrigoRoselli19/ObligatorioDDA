@@ -277,7 +277,6 @@ public class ABMPartido {
                 return;
             }
         }
-
         System.out.println("No se encontró un partido con la fecha especificada.");
     }
     // Método para guardar la lista de equipos en un archivo de texto
@@ -302,7 +301,7 @@ public class ABMPartido {
                 listaPartidos.add(new Partido(fecha, hora, equipoA, equipoB, arbitro));
             }
         } catch (IOException e) {
-            // Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
+            System.out.println("No se pueden cargar los partidos"+ e.getMessage());// Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
         }
     }
     private static void cargarEquipos() {
@@ -312,7 +311,7 @@ public class ABMPartido {
                 listaEquipos.add(new Equipo(line));
             }
         } catch (IOException e) {
-            // Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
+            System.out.println("No se pueden cargar los equipos"+ e.getMessage());// Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
         }
     }
     private static void cargarArbitros() {
@@ -326,7 +325,7 @@ public class ABMPartido {
                 listaArbitros.add(new Arbitro(cedula, nombre, apellido, salario, exp));
             }
         } catch (IOException e) {
-            System.out.println("Aun no se ha creado un Arbitro");// Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
+            System.out.println("Aun no se ha creado un Arbitro"+e.getMessage());// Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
         }
     }
 }
