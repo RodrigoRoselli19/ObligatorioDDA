@@ -4,22 +4,21 @@ import java.util.List;
 import java.util.Scanner;
 public class ABMPartido {
     static List<Partido> listaPartidos = new ArrayList<>();
-    static List<Arbitro> listaArbitros = new ArrayList<>();
+    static List<Arbitro> listaArbitro = new ArrayList<>();
     static List<Equipo> listaEquipos = new ArrayList<>();
     private static final String PARTIDOS_FILENAME = "partidos.txt";
+    private static final String ARBITROS_FILENAME = "arbitros.txt";
 
     public static void main(String[] args) {
         boolean salir = false;
         Scanner scanner = new Scanner(System.in);
-        cargarArbitros();
-        cargarEquipos();
         cargarPartidos();
         while (!salir) {
             System.out.println("\nRealización de Partido\n");
             System.out.println("1. Agregar Partido");
             System.out.println("2. Eliminar Partido");
             System.out.println("3. Modificar Partido");
-            System.out.println("4. Mostrar Partido por fecha");
+            System.out.println("4. Mostrar Partidos");
             System.out.println("5. Buscar Partido por fecha");
             System.out.println("6. Mostrar arbitro del partido");
             System.out.println("7. Salir");
@@ -98,46 +97,30 @@ public class ABMPartido {
         for (Equipo equipo : listaEquipos) {
             System.out.println(equipo.getNombreE());
         }
-        System.out.print("Seleccione un equipo por su nombre: ");
-        String nombreEquipoA = scanner.nextLine();
 
-        Equipo equipoSeleccionadoB = null;
-        for (Equipo equipo : listaEquipos) {
-            if (equipo.getNombreE().equalsIgnoreCase(nombreEquipoA)) {
-                equipoSeleccionadoB = equipo;
-                break;
-            }
-        }
+        System.out.print("Seleccione el primer equipo por su nombre: ");
+        String nombreEquipoA = scanner.nextLine();
+        Equipo equipoSeleccionadoA = buscarEquipoPorNombre(nombreEquipoA);
+
+        listaEquipos.removeIf(equipo -> equipo.equals(equipoSeleccionadoA));
 
         System.out.println("Equipos disponibles:");
         for (Equipo equipo : listaEquipos) {
             System.out.println(equipo.getNombreE());
         }
-        System.out.print("Seleccione un equipo por su nombre: ");
-        String nombreEquipoB = scanner.nextLine();
 
-        Equipo equipoSeleccionadoA = null;
-        for (Equipo equipo : listaEquipos) {
-            if (equipo.getNombreE().equalsIgnoreCase(nombreEquipoB)) {
-                equipoSeleccionadoA = equipo;
-                break;
-            }
-        }
+        System.out.print("Seleccione el segundo equipo por su nombre: ");
+        String nombreEquipoB = scanner.nextLine();
+        Equipo equipoSeleccionadoB = buscarEquipoPorNombre(nombreEquipoB);
 
         System.out.println("Árbitros disponibles:");
-        for (Arbitro arbitro : listaArbitros) {
+        for (Arbitro arbitro : listaArbitro) {
             System.out.println(arbitro.getNombre());
         }
         System.out.print("Seleccione un árbitro por su nombre: ");
         String nombreArbitro = scanner.nextLine();
 
-        Arbitro arbitroSeleccionado = null;
-        for (Arbitro arbitro : listaArbitros) {
-            if (arbitro.getNombre().equalsIgnoreCase(nombreArbitro)) {
-                arbitroSeleccionado = arbitro;
-                break;
-            }
-        }
+        Arbitro arbitroSeleccionado = buscarArbitroPorNombre(nombreArbitro);
 
         if (arbitroSeleccionado != null || equipoSeleccionadoA != null || equipoSeleccionadoB != null) {
             listaPartidos.add(new Partido(fecha, hora, equipoSeleccionadoA, equipoSeleccionadoB, arbitroSeleccionado));
@@ -171,18 +154,10 @@ public class ABMPartido {
     }
 
     static void mostrarPartidoPorFecha() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Ingrese la fecha del partido a mostrar: ");
-        String fechaMostrar = scanner.nextLine();
-
+        System.out.print("Lista de Partidos: ");
         for (Partido partido : listaPartidos) {
-            if (partido.getFecha().equalsIgnoreCase(fechaMostrar)) {
-                System.out.println("Partido encontrado:\n" + partido);
-
-            }
+            System.out.println(partido.toString());
         }
-
-        System.out.println("No se encontraron partidos con la fecha especificada.");
     }
 
     static void modificarPartido() {
@@ -232,14 +207,14 @@ public class ABMPartido {
                 }
 
                 System.out.println("Árbitros disponibles:");
-                for (Arbitro arbitro : listaArbitros) {
+                for (Arbitro arbitro : listaArbitro) {
                     System.out.println(arbitro.getNombre());
                 }
                 System.out.print("Seleccione un árbitro por su nombre: ");
                 String nombreArbitro = scanner.nextLine();
 
                 Arbitro arbitroSeleccionado = null;
-                for (Arbitro arbitro : listaArbitros) {
+                for (Arbitro arbitro : listaArbitro) {
                     if (arbitro.getNombre().equalsIgnoreCase(nombreArbitro)) {
                         arbitroSeleccionado = arbitro;
                         break;
@@ -273,6 +248,7 @@ public class ABMPartido {
         for (Partido partido : listaPartidos) {
             if (partido.getFecha().equalsIgnoreCase(fechaEliminar)) {
                 listaPartidos.remove(partido);
+                guardarPartidos();
                 System.out.println("Partido eliminado con éxito.");
                 return;
             }
@@ -283,7 +259,7 @@ public class ABMPartido {
     private static void guardarPartidos() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(PARTIDOS_FILENAME))) {
             for (Partido partido : listaPartidos) {
-                writer.println(partido.getFecha()+" "+partido.getHora()+" "+partido.getEquipoA()+" "+partido.getEquipoB()+" "+partido.getArbitro());
+                writer.println(partido.toString());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -291,18 +267,45 @@ public class ABMPartido {
     }
     // Método para cargar la lista de equipos desde un archivo de texto
     private static void cargarPartidos() {
+        cargarArbitros();
+        cargarEquipos();
         try (BufferedReader reader = new BufferedReader(new FileReader(PARTIDOS_FILENAME))) {
-            String fecha = "";
-            String hora = "";
-            Equipo equipoA = null;
-            Equipo equipoB = null;
-            Arbitro arbitro = null;
-            while ((fecha = reader.readLine()) != null || (hora = reader.readLine()) != null) {
+            String line;
+            while ((line = reader.readLine()) != null){
+                String[] parts = line.split("'");
+                String fecha = parts[1];
+                String hora = parts[3];
+                String nombreA = parts[5];
+                Equipo equipoA = null;
+                for (Equipo A : listaEquipos) {
+                    if (A.getNombreE().equals(nombreA)) {
+                        equipoA = A;
+                        break;
+                    }
+                }
+                Equipo equipoB = null;
+                String nombreB = parts[8];
+                for (Equipo B : listaEquipos) {
+                    if (B.getNombreE().equals(nombreB)) {
+                        equipoB = B;
+                        break;
+                    }
+                }
+                String nombreArbitro = parts[10];
+                Arbitro arbitro = buscarArbitroPorNombre(nombreArbitro);
                 listaPartidos.add(new Partido(fecha, hora, equipoA, equipoB, arbitro));
             }
         } catch (IOException e) {
             System.out.println("No se pueden cargar los partidos"+ e.getMessage());// Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
         }
+    }
+    private static Arbitro buscarArbitroPorNombre(String nombreArbitro) {
+        for (Arbitro a : listaArbitro) {
+            if (a.getNombre().equalsIgnoreCase(nombreArbitro)) {
+                return a;
+            }
+        }
+        return null;
     }
     private static void cargarEquipos() {
         try (BufferedReader reader = new BufferedReader(new FileReader("equipos.txt"))) {
@@ -315,17 +318,34 @@ public class ABMPartido {
         }
     }
     private static void cargarArbitros() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("arbitros.txt"))) {
-            String cedula;
-            String nombre = "";
-            String apellido = "";
+        try (BufferedReader reader = new BufferedReader(new FileReader(ARBITROS_FILENAME))) {
+            String cedula = "";
+            String nombre="";
+            String apellido="";
             double salario = 0;
             int exp = 0;
-            while ((cedula = reader.readLine()) != null || (nombre = reader.readLine()) != null || (apellido = reader.readLine()) != null) {
-                listaArbitros.add(new Arbitro(cedula, nombre, apellido, salario, exp));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("'"); // Separa los valores basados en la coma y espacio
+                cedula = parts[1];
+                nombre = parts[3];
+                apellido = parts[5];
+                salario = Double.parseDouble(parts[7]);
+                exp = Integer.parseInt(parts[11]);
+
+                listaArbitro.add(new Arbitro(cedula, nombre, apellido, salario, exp));
             }
         } catch (IOException e) {
-            System.out.println("Aun no se ha creado un Arbitro"+e.getMessage());// Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
+            System.out.println("Error al cargar los datos de los árbitros.");
         }
+    }
+    private static Equipo buscarEquipoPorNombre(String nombreEquipo) {
+        for (Equipo equipo : listaEquipos) {
+            if (equipo.getNombreE().equalsIgnoreCase(nombreEquipo)) {
+                return equipo;
+            }
+        }
+        return null; // Si el equipo no se encuentra, se devuelve null
     }
 }

@@ -1,1 +1,1 @@
-5235323 Luis Vasquez 43000.0 null
+Persona: 'Cedula= '325236', Nombre='roro', Apellido='rose', Salario='34222.0' Tecnico:  Equipo: 'Real Madrid', Partidos Ganados='0'

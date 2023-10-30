@@ -40,7 +40,7 @@ public void setEquipo(Equipo equipo){
                 " Jugador: " +
                 "Posicion='" + posicion + '\'' +
                  equipo + '\'' +
-                ", Minutos=" + minutos + '\'';
+                ", Minutos='" + minutos + '\'';
     }
 
     @Override

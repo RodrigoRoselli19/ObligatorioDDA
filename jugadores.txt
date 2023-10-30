@@ -1,0 +1,1 @@
+Persona: 'Cedula= '51709998', Nombre='Rodrigo', Apellido='Roselli', Salario='43000.0' Jugador: Posicion='MC' Equipo: 'Real Madrid'', Minutos='0'

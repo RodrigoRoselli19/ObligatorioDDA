@@ -1,0 +1,3 @@
+Partido: Fecha= '543534', Hora= '342' Equipo: 'Real Madrid' vs ' Equipo: 'Barcelona', Arbitro= 'null'
+Partido: Fecha= '324325', Hora= '3532' Equipo: 'Real Madrid' vs ' Equipo: 'Barcelona', Arbitro= 'null'
+Partido: Fecha= '34234', Hora= '23432' Equipo: 'Real Madrid' vs ' Equipo: 'Barcelona', Arbitro= 'Persona: 'Cedula= '51709998', Nombre='rodrigo', Apellido='roselli', Salario='43000.0' Arbitro: 'Partidos Dirigidos=0', Años Experiencia=2''

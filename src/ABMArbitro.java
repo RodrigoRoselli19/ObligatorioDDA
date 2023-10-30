@@ -122,10 +122,15 @@ public class ABMArbitro {
         guardarArbitros();
     }
 
-    static void mostrarArbitros() {
+    public static void mostrarArbitros() {
         System.out.println("Lista de Árbitros:");
         for (Arbitro arbitro : listaArbitro) {
-            System.out.println(arbitro);
+            System.out.println("Cedula=" + arbitro.getCedula() +
+                    ", Nombre='" + arbitro.getNombre() +
+                    "', Apellido='" + arbitro.getApellido() +
+                    "', Salario=" + arbitro.getSalario() +
+                    ", Partidos Dirigidos=" + arbitro.getPartidosDirigidos() +
+                    ", Años Experiencia=" + arbitro.getAñosExperiencia());
         }
     }
 
@@ -145,6 +150,7 @@ public class ABMArbitro {
         if (arrayArbitros[0] != null) {
             listaArbitro.remove(arrayArbitros[0]);
             mostrarArbitros();
+            guardarArbitros();
         } else {
             System.out.println("Cédula no encontrada. \n");
         }
@@ -182,6 +188,7 @@ public class ABMArbitro {
             arbitroAModificar.setSalario(nuevoSalario);
             arbitroAModificar.setAñosExperiencia(nuevosAñosExperiencia);
             mostrarArbitros();
+            guardarArbitros();
         } else {
             System.out.println("Cédula no encontrada. \n");
         }
@@ -210,7 +217,7 @@ public class ABMArbitro {
     private static void guardarArbitros() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(ARBITROS_FILENAME))) {
             for (Arbitro arbitro : listaArbitro) {
-                writer.println(arbitro.getCedula()+" " +arbitro.getNombre()+" " +arbitro.getApellido()+" " +arbitro.getSalario()+" "+arbitro.getAñosExperiencia()+" "+arbitro.getPartidosDirigidos());
+                writer.println(arbitro.toString());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -219,16 +226,25 @@ public class ABMArbitro {
     // Método para cargar la lista de equipos desde un archivo de texto
     private static void cargarArbitros() {
         try (BufferedReader reader = new BufferedReader(new FileReader(ARBITROS_FILENAME))) {
-            String cedula;
-            String nombre = "";
-            String apellido = "";
+            String cedula = "";
+            String nombre="";
+            String apellido="";
             double salario = 0;
             int exp = 0;
-            while ((cedula = reader.readLine()) != null || (nombre = reader.readLine()) != null || (apellido = reader.readLine()) != null) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("'"); // Separa los valores basados en la coma y espacio
+                    cedula = parts[1];
+                    nombre = parts[3];
+                    apellido = parts[5];
+                    salario = Double.parseDouble(parts[7]);
+                    exp = Integer.parseInt(parts[11]);
+
                 listaArbitro.add(new Arbitro(cedula, nombre, apellido, salario, exp));
             }
         } catch (IOException e) {
-            System.out.println("Aun no se ha creado un Arbitro");// Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
+            System.out.println("Error al cargar los datos de los árbitros.");
         }
     }
 }

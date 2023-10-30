@@ -107,24 +107,23 @@ public class ABMTecnico {
 
         int tecnicoPorEquipo = 0;
         for (Tecnico tecnico: listaTecnicos) {
-            if (tecnico.getEquipo().equals(equipoSeleccionado)){
+            if (tecnico.getEquipo() != null && tecnico.getEquipo().equals(equipoSeleccionado)){
                 tecnicoPorEquipo++;
             }
         }
-        if (tecnicoPorEquipo <= 1){
+        if (tecnicoPorEquipo < 1){
             listaTecnicos.add(new Tecnico(cedula, nombre, apellido, salario, equipoSeleccionado));
             mostrarTecnicos();
             guardarTecnicos();
         } else {
             System.out.println("Ya tiene tecnico este equipo");
         }
-
     }
 
     static void mostrarTecnicos() {
         System.out.println("Lista de Técnicos:");
         for (Tecnico tecnico : listaTecnicos) {
-            System.out.println(tecnico);
+            System.out.println(tecnico.toString());
         }
     }
 
@@ -132,8 +131,9 @@ public class ABMTecnico {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese la cédula del técnico que desea eliminar: ");
         String cedulaEliminar = scanner.nextLine();
-        Tecnico[] arrayTecnicos = listaTecnicos.toArray(new Tecnico[0]);
-        for (int i = 0; i < arrayTecnicos.length; i++) {
+
+        for (int i = 0; i < listaTecnicos.size(); i++) {
+            Tecnico[] arrayTecnicos = listaTecnicos.toArray(new Tecnico[i]);
             Tecnico tecnico = arrayTecnicos[i];
             if (tecnico.getCedula().equals(cedulaEliminar)) {
                 listaTecnicos.remove(tecnico);
@@ -217,7 +217,7 @@ public class ABMTecnico {
     private static void guardarTecnicos() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(TECNICOS_FILENAME))) {
             for (Tecnico tecnico : listaTecnicos) {
-                writer.println(tecnico.getCedula()+" " +tecnico.getNombre()+" " +tecnico.getApellido()+" " +tecnico.getSalario()+" " +tecnico.getEquipo());
+                writer.println(tecnico.toString());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -225,18 +225,32 @@ public class ABMTecnico {
     }
     // Método para cargar la lista de equipos desde un archivo de texto
     private static void cargarTecnicos() {
+        cargarEquipos();
         try (BufferedReader reader = new BufferedReader(new FileReader(TECNICOS_FILENAME))) {
-            String cedula = "";
-            String nombre = "";
-            String apellido = "";
-            double salario = 0;
-            Equipo equipo = null;
-            while ((cedula = reader.readLine()) != null || (nombre = reader.readLine()) != null || (apellido = reader.readLine()) != null) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("'");
+                String cedula = parts[2];
+                String nombre = parts[4];
+                String apellido = parts[6];
+                double salario = Double.parseDouble(parts[8]);
+                String nombreE = parts[10];
+                Equipo equipo = buscarEquipoPorNombre(nombreE);
+
                 listaTecnicos.add(new Tecnico(cedula, nombre, apellido, salario, equipo));
             }
-        } catch (IOException e) {
-            // Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
         }
+        catch (IOException e) {
+            System.out.println("Aun no se ha creado un Tecnico");// Manejo de excepciones en caso de fallo (puede no haber un archivo al inicio)
+        }
+    }
+    private static Equipo buscarEquipoPorNombre(String nombreE) {
+        for (Equipo e : listaEquipos) {
+            if (e.getNombreE().equalsIgnoreCase(nombreE)) {
+                return e;
+            }
+        }
+        return null;
     }
     private static void cargarEquipos() {
         try (BufferedReader reader = new BufferedReader(new FileReader("equipos.txt"))) {

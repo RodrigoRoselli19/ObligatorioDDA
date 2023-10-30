@@ -56,12 +56,11 @@ public class Partido {
 
     @Override
     public String toString() {
-        return "Partido{" +
-                "Fecha='" + fecha + '\'' +
-                ", Hora='" + hora + '\'' +
+        return "Partido: " +
+                "Fecha= '" + fecha + '\'' +
+                ", Hora= '" + hora + '\'' +
                  equipoA +
-                " vs '" + equipoB + '\'' +
-                ", Arbitro=" + arbitro +
-                '}';
+                " vs '" + equipoB +
+                ", Arbitro= '" + arbitro + '\'';
     }
 }

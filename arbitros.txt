@@ -1,2 +1,1 @@
-1222222 Jose Rodriguez 52000.0 2 0
-2223232 Antonio Gomez 120000.0 1 0
+Persona: Cedula= '51709998', Nombre='rodrigo', Apellido='roselli', Salario='43000.0' Arbitro: Partidos Dirigidos='0', Años Experiencia='2'

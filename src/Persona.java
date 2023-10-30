@@ -45,8 +45,8 @@ public abstract class Persona {
 
     @Override
     public String toString() {
-        return "Persona: " +
-                "Cedula= " + cedula + '\'' +
+        return "Persona: " +'\'' +
+                "Cedula= '" + cedula + '\'' +
                 ", Nombre='" + nombre + '\'' +
                 ", Apellido='" + apellido + '\'' +
                 ", Salario='" + salario + '\'';

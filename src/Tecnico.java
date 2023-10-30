@@ -33,9 +33,8 @@ public class Tecnico extends Persona {
         return super.toString()+
                 " Tecnico: " +
                  equipo +
-                ", Partidos Ganados=" + partidosGanados;
+                ", Partidos Ganados='" + partidosGanados+'\'';
     }
-
     @Override
     public double calcularSalario() {
         // Calcula el salario base del técnico
