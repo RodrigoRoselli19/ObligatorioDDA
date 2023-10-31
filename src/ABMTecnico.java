@@ -19,7 +19,7 @@ public class ABMTecnico {
             System.out.println("3. Modificar Técnico");
             System.out.println("4. Mostrar Técnicos");
             System.out.println("5. Buscar Técnico por Cédula");
-            System.out.println("6. Calcular salario de jugador");
+            System.out.println("6. Calcular salario de tecnico");
             System.out.println("7. Salir");
             System.out.print("\nSeleccione una opción: ");
 

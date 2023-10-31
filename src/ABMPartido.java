@@ -70,7 +70,7 @@ public class ABMPartido {
 
         for (Partido partido : listaPartidos) {
             if (partido.getFecha().equalsIgnoreCase(fechaPartido)) {
-                System.out.println("Árbitro del partido: " + partido.getArbitro().getNombre());
+                System.out.println("Árbitro del partido: " + partido.getArbitro());
                 partidoEncontrado = true;
                 break;
             }
@@ -319,11 +319,11 @@ public class ABMPartido {
     }
     private static void cargarArbitros() {
         try (BufferedReader reader = new BufferedReader(new FileReader(ARBITROS_FILENAME))) {
-            String cedula = "";
-            String nombre="";
-            String apellido="";
-            double salario = 0;
-            int exp = 0;
+            String cedula;
+            String nombre;
+            String apellido;
+            double salario;
+            int exp;
 
             String line;
             while ((line = reader.readLine()) != null) {

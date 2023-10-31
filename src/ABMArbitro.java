@@ -226,11 +226,11 @@ public class ABMArbitro {
     // Método para cargar la lista de equipos desde un archivo de texto
     private static void cargarArbitros() {
         try (BufferedReader reader = new BufferedReader(new FileReader(ARBITROS_FILENAME))) {
-            String cedula = "";
-            String nombre="";
-            String apellido="";
-            double salario = 0;
-            int exp = 0;
+            String cedula;
+            String nombre;
+            String apellido;
+            double salario;
+            int exp;
 
             String line;
             while ((line = reader.readLine()) != null) {
